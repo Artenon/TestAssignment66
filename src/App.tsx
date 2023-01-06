@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { APPRoute } from './const';
+import { News } from './pages/news';
 
 function App() {
 
@@ -6,7 +8,8 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route></Route>  
+          <Route path={APPRoute.Main} element={ <News /> } />
+          <Route path={APPRoute.Themes} />
         </Routes>
       </div>
     </BrowserRouter>

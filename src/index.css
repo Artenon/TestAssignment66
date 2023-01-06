@@ -1,0 +1,36 @@
+/* COMPONENTS */
+
+.header, .footer {
+  position: fixed;
+  width: 100%;
+}
+
+.header {
+  top: 0;
+}
+
+.footer {
+  bottom: 0;
+}
+
+/* NEWS */
+
+.news__heading {
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  line-height: 40px;
+}
+
+.news__header + .news__item {
+  margin-top: 40px;
+}
+
+.news__item {
+  padding: 7px;
+}
+
+.news__title {
+  font-weight: bold;
+  font-size: 18px;
+}
