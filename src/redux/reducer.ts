@@ -1,7 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { News, Styles } from '../types/types';
 import { fetchNews, fetchStyles } from './api-actions';
-import { saveStyles, getStyles } from '../services/styles';
 
 const initialState: {
   news: News[];
@@ -10,7 +9,7 @@ const initialState: {
 } = {
   news: [],
   isLoading: true,
-  styles: getStyles()
+  styles: null
 }
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -29,6 +28,6 @@ export const reducer = createReducer(initialState, (builder) => {
         saveStyles(action.payload);
       }
       */
-      saveStyles(action.payload);
+      state.styles = action.payload;
     });
 });
