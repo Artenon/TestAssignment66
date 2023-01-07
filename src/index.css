@@ -2,6 +2,7 @@
 
 .header, .footer {
   position: fixed;
+  z-index: 10;
   width: 100%;
 }
 
@@ -11,6 +12,13 @@
 
 .footer {
   bottom: 0;
+}
+
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* NEWS */
@@ -23,16 +31,33 @@
 }
 
 .news__items {
-  margin-top: 40px;
   list-style: none;
   padding: 0;
 }
 
 .news__item {
   padding: 7px;
+  /* border-radius: 10px;
+  border-bottom: 2px solid #000; */
 }
 
 .news__title {
   font-weight: bold;
   font-size: 18px;
+}
+
+/* PULL_TO_REFRESH */ 
+
+.ptr {
+  margin-top: 40px;
+}
+
+.ptr--dragging div.ptr__pull-down--pull-more p {
+  display: none;
+}
+
+.ptr--dragging div.ptr__pull-down--pull-more div::after {
+  content: 'Потяни, чтобы обновить';
+  display: block;
+  text-align: center;
 }
