@@ -1,49 +1,58 @@
+import { CSSProperties } from 'react';
+import Loading from 'react-loading';
 import { useAppSelector, useAppDispatch } from '../hooks';
-import { getStyles } from '../redux/selectors';
+import { fetchStyles } from '../redux/api-actions';
+import { getStyles, getCurrentStyles, getIsLoading } from '../redux/selectors';
 import { Header } from '../components/header/header';
 import { Footer } from '../components/footer/footer';
-import { setTheme, removeTheme } from '../services/styles';
-import { Theme } from '../const';
-import { fetchStyles } from '../redux/api-actions';
+import { setStyles, removeStyles } from '../services/styles';
+import { Styles } from '../types/types';
 
 export const ThemesPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
+
   const styles = useAppSelector(getStyles);
+  const isLoading = useAppSelector(getIsLoading);
+  const currentStyles = useAppSelector(getCurrentStyles);
 
-  const themes: {
-    name: string;
-    theme: Theme;
-  }[] = [
-    { name: 'Темная тема', theme: Theme.Dark },
-    { name:'Светлая тема', theme: Theme.Light },
-    { name: 'Синяя тема', theme: Theme.Blue }
-  ];
-
-  const handleTheme = (theme: Theme) => {
-    removeTheme();
-    setTheme(theme);
-    dispatch(fetchStyles(theme));
+  const handleTheme = (styles: Styles) => {
+    removeStyles();
+    setStyles(styles);
+    dispatch(fetchStyles());    
   };
 
   return (
-    <div className="themes" style={{backgroundColor: styles?.secondColor}}>
-      <Header mainColor={styles?.mainColor} textColor={styles?.textColor} heading='Темы' />
-
-      <ul className='themes__items'>
+    <div className="themes" style={{backgroundColor: currentStyles?.secondColor}}>
+      <Header mainColor={currentStyles?.mainColor} textColor={currentStyles?.textColor} heading='Темы' />
+      {
+        isLoading
+        ? <Loading type='spin' color={currentStyles?.textColor} className='loading' />
+        :
+        <ul className='themes__items'>
         {
-          themes.map((theme) => (
-            <li
-              className='themes__item'
-              key={theme.name}
-              onClick={() => handleTheme(theme.theme)}
-            >
-              {theme.name}
-            </li>
-          ))
+          styles.map((item) => {
+            const itemStyles: CSSProperties = {
+              border: `2px solid ${item.mainColor}`,
+              backgroundColor: item.secondColor,
+              color: item.textColor,
+              boxShadow: `0 0 3px 1px ${item.mainColor}`
+            };
+
+            return (
+              <li
+                className='themes__item'
+                key={item.id}
+                onClick={() => handleTheme(item)}
+                style={itemStyles}
+              >
+                {item.title}
+              </li>
+            );
+          })
         }
       </ul>
-
-      <Footer mainColor={styles?.mainColor} />
+      }
+      <Footer mainColor={currentStyles?.mainColor} />
     </div>    
   );
 }

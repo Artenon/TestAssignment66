@@ -58,7 +58,7 @@ ul {
 }
 
 .ptr--dragging div.ptr__pull-down--pull-more div::after {
-  content: 'Потяни, чтобы обновить';
+  content: 'Потяни, чтобы обновить \27F3';
   display: block;
   text-align: center;
 }
@@ -77,6 +77,7 @@ ul {
   width: 70vw;
   text-align: center;
   font-size: 20px;
+  line-height: 42px;
   border-radius: 10px;
   cursor: pointer;
   transition: .2s;

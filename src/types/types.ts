@@ -1,4 +1,5 @@
-import { store } from "../redux/store";
+import { store } from '../redux/store';
+import { Theme } from '../const';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -14,7 +15,7 @@ export type News = {
 
 export type Styles = {
   id: number,
-  name: string,
+  name: Theme,
   mainColor: string,
   secondColor: string,
   title: string,

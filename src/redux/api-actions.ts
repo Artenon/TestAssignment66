@@ -16,15 +16,17 @@ export const fetchNews = createAsyncThunk<News[], undefined, {
   }
 );
 
-export const fetchStyles = createAsyncThunk<Styles, Theme, {
+export const fetchStyles = createAsyncThunk<Styles[], undefined, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }
 >(
   `DATA/fetchStyles`,
-  async (theme, {dispatch, extra: api}) => {
-    const {data} = await api.get<Styles>(`${APIRoute.Theme}${APIRoute.Get}${APIRoute.Name}${theme}`);
-    return data;
+  async (_arg, {dispatch, extra: api}) => {
+    const darkTheme = await api.get<Styles>(`${APIRoute.Theme}${APIRoute.Get}${APIRoute.Name}${Theme.Dark}`);
+    const lightTheme = await api.get<Styles>(`${APIRoute.Theme}${APIRoute.Get}${APIRoute.Name}${Theme.Light}`);
+    const blueTheme = await api.get<Styles>(`${APIRoute.Theme}${APIRoute.Get}${APIRoute.Name}${Theme.Blue}`);
+    return [darkTheme.data, lightTheme.data, blueTheme.data];
   }
 );
