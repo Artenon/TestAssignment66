@@ -22,8 +22,10 @@
   line-height: 40px;
 }
 
-.news__header + .news__item {
+.news__items {
   margin-top: 40px;
+  list-style: none;
+  padding: 0;
 }
 
 .news__item {

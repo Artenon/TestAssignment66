@@ -1,4 +1,4 @@
-export enum APPRoute {
+export enum AppRoute {
   Main = '/',
   Themes = '/themes'
 };
