@@ -23,11 +23,11 @@ export const NewsPage = (): JSX.Element => {
   };
 
   return (
-    <div className='news'>
+    <section className='news' style={{backgroundColor: currentStyles?.secondColor}}>
       <Header mainColor={currentStyles?.mainColor} textColor={currentStyles?.textColor} heading='Новости' />
       {
         isLoading
-        ? <Loading type='spin' color={currentStyles?.textColor} className='loading' />
+        ? <div className="loading__wrapper"><Loading type='spin' color={currentStyles?.textColor} className='loading' /></div>
         : 
         <PullToRefresh
           onRefresh={handleRefresh}
@@ -49,6 +49,6 @@ export const NewsPage = (): JSX.Element => {
         </PullToRefresh>
       }
       <Footer mainColor={currentStyles?.mainColor} />
-    </div>
+    </section>
   );
 };

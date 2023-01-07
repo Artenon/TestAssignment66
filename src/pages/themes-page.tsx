@@ -22,11 +22,11 @@ export const ThemesPage = (): JSX.Element => {
   };
 
   return (
-    <div className="themes" style={{backgroundColor: currentStyles?.secondColor}}>
+    <section className='themes' style={{backgroundColor: currentStyles?.secondColor}}>
       <Header mainColor={currentStyles?.mainColor} textColor={currentStyles?.textColor} heading='Темы' />
       {
         isLoading
-        ? <Loading type='spin' color={currentStyles?.textColor} className='loading' />
+        ? <div className="loading__wrapper"><Loading type='spin' color={currentStyles?.textColor} className='loading' /></div>
         :
         <ul className='themes__items'>
         {
@@ -53,6 +53,6 @@ export const ThemesPage = (): JSX.Element => {
       </ul>
       }
       <Footer mainColor={currentStyles?.mainColor} />
-    </div>    
+    </section>    
   );
 }
