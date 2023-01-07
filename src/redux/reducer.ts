@@ -21,13 +21,11 @@ export const reducer = createReducer(initialState, (builder) => {
       state.news = action.payload;
       state.isLoading = false;
     })
+    .addCase(fetchStyles.pending, (state) => {
+      state.isLoading = true;
+    })
     .addCase(fetchStyles.fulfilled, (state, action) => {
-      /*
-      const styles = getStyles();
-      if (!styles) {
-        saveStyles(action.payload);
-      }
-      */
       state.styles = action.payload;
+      state.isLoading = false;
     });
 });

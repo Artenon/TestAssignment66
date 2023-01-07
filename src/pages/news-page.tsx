@@ -7,7 +7,7 @@ import { getNews, getStyles, getIsLoading } from '../redux/selectors';
 import { Header } from '../components/header/header';
 import { Footer } from '../components/footer/footer';
 
-export const News = (): JSX.Element => {
+export const NewsPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const news = useAppSelector(getNews);
