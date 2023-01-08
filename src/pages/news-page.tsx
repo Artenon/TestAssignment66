@@ -57,7 +57,6 @@ export const NewsPage = (): JSX.Element => {
         : 
         <PullToRefresh
           onRefresh={handleRefresh}
-          backgroundColor={currentStyles?.secondColor}
           pullDownThreshold={90}
           maxPullDownDistance={100}
           resistance={3}
