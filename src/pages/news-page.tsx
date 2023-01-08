@@ -48,7 +48,7 @@ export const NewsPage = (): JSX.Element => {
           </ul>
         </PullToRefresh>
       }
-      <Footer mainColor={currentStyles?.mainColor} />
+      <Footer mainColor={currentStyles?.mainColor} textColor={currentStyles?.textColor} />
     </section>
   );
 };

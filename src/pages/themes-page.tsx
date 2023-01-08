@@ -52,7 +52,7 @@ export const ThemesPage = (): JSX.Element => {
         }
       </ul>
       }
-      <Footer mainColor={currentStyles?.mainColor} />
+      <Footer mainColor={currentStyles?.mainColor} textColor={currentStyles?.textColor} />
     </section>    
   );
 }
