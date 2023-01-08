@@ -7,3 +7,7 @@ export const getIsLoading = (state: State): boolean => state.isLoading;
 export const getStyles = (state: State): Styles[] => state.styles;
 
 export const getCurrentStyles = (state: State): Styles | null => state.currentStyles;
+
+export const getNextPage = (state: State): number => state.nextPage;
+
+export const getIsNextPageLoading = (state: State): boolean => state.isNextPageLoading;

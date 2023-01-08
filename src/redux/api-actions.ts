@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { State, AppDispatch, News, Styles } from '../types/types';
-import { APIRoute, Theme } from '../const';
+import { APIRoute, Theme, NewsAmount } from '../const';
 
 export const fetchNews = createAsyncThunk<News[], undefined, {
   dispatch: AppDispatch,
@@ -11,7 +11,20 @@ export const fetchNews = createAsyncThunk<News[], undefined, {
 >(
   `DATA/fetchNews`,
   async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<News[]>(`${APIRoute.News}${APIRoute.Get}${APIRoute.Page}1&${APIRoute.Count}10`);
+    const {data} = await api.get<News[]>(`${APIRoute.News}${APIRoute.Get}${APIRoute.Page}1&${APIRoute.Count}${NewsAmount}`);
+    return data;
+  }
+);
+
+export const fetchMoreNews = createAsyncThunk<News[], number, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}
+>(
+  `DATA/fetchMoreNews`,
+  async (page, {dispatch, extra: api}) => {
+    const {data} = await api.get<News[]>(`${APIRoute.News}${APIRoute.Get}${APIRoute.Page}${page}&${APIRoute.Count}${NewsAmount}`);
     return data;
   }
 );

@@ -1,3 +1,5 @@
+export const NewsAmount = 15;
+
 export enum AppRoute {
   Main = '/',
   Themes = '/themes'
