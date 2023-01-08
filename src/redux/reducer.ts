@@ -1,4 +1,5 @@
 import { createReducer, createAction } from '@reduxjs/toolkit';
+import { toast, ToastOptions } from 'react-toastify';
 import { getStyles, setStyles } from '../services/styles';
 import { News, Styles } from '../types/types';
 import { fetchNews, fetchStyles, fetchMoreNews } from './api-actions';
@@ -19,6 +20,13 @@ const initialState: {
   nextPage: 2,
 };
 
+const toastifyOptions: ToastOptions = {
+  theme: 'colored',
+  position: 'top-center',
+  autoClose: false,
+  toastId: 1,
+};
+
 export const changeNextPage = createAction('PAGE/changeNextPage');
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -30,6 +38,10 @@ export const reducer = createReducer(initialState, (builder) => {
       state.news = action.payload;
       state.nextPage = 2;
       state.isLoading = false;
+    })
+    .addCase(fetchNews.rejected, (state) => {
+      state.isLoading = false;
+      toast.error('Случилась ошибка при загрузке страницы, попробуйте перезапустить страницу!', toastifyOptions);
     })
     .addCase(fetchStyles.pending, (state) => {
       state.isLoading = true;
@@ -44,6 +56,10 @@ export const reducer = createReducer(initialState, (builder) => {
       state.styles = action.payload;
       state.isLoading = false;
     })
+    .addCase(fetchStyles.rejected, (state) => {
+      state.isLoading = false;
+      toast.error('Случилась ошибка при загрузке стилей, попробуйте перезапустить страницу!', toastifyOptions);
+    })
     .addCase(fetchMoreNews.pending, (state) => {
       state.isNextPageLoading = true;
     })
@@ -52,6 +68,10 @@ export const reducer = createReducer(initialState, (builder) => {
         state.news.push(news);
       });
       state.isNextPageLoading = false;
+    })
+    .addCase(fetchMoreNews.rejected, (state) => {
+      state.isLoading = false;
+      toast.error('Случилась ошибка при загрузке дополнительных новостей, попробуйте перезапустить страницу!', toastifyOptions);
     })
     .addCase(changeNextPage, (state) => {
       state.nextPage += 1;
