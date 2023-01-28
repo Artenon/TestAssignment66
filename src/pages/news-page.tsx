@@ -7,6 +7,7 @@ import { changeNextPage } from '../redux/reducer';
 import { getNews, getIsLoading, getCurrentStyles, getNextPage, getIsNextPageLoading } from '../redux/selectors';
 import { Header } from '../components/header/header';
 import { Footer } from '../components/footer/footer';
+import { ToTheTopButton } from '../components/to-the-top-button/to-the-top-button';
 
 export const NewsPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -74,6 +75,8 @@ export const NewsPage = (): JSX.Element => {
         </PullToRefresh>
       }
       <Footer mainColor={currentStyles?.mainColor} textColor={currentStyles?.textColor} />
+
+      <ToTheTopButton secondColor={currentStyles?.secondColor} textColor={currentStyles?.textColor} />
     </section>
   );
 };

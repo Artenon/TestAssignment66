@@ -156,3 +156,29 @@ ul {
 .themes__item:last-child {
   margin-bottom: 0;
 }
+
+/* TO_THE_TOP */
+
+.toTheTop {
+  position: fixed;
+  bottom: 50px;
+  right: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.toTheTop.visible {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.toTheTop.hidden {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.toTheTop svg {
+  width: 35px;
+  height: 35px;
+}
