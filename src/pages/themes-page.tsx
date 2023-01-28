@@ -1,8 +1,8 @@
 import { CSSProperties } from 'react';
 import Loading from 'react-loading';
 import { useAppSelector, useAppDispatch } from '../hooks';
-import { fetchStyles } from '../redux/api-actions';
 import { getStyles, getCurrentStyles, getIsLoading } from '../redux/selectors';
+import { changeCurrentStyles } from '../redux/reducer';
 import { Header } from '../components/header/header';
 import { Footer } from '../components/footer/footer';
 import { setStyles, removeStyles } from '../services/styles';
@@ -15,10 +15,10 @@ export const ThemesPage = (): JSX.Element => {
   const isLoading = useAppSelector(getIsLoading);
   const currentStyles = useAppSelector(getCurrentStyles);
 
-  const handleTheme = (styles: Styles) => {
+  const handleTheme = (chosenStyles: Styles, index: number) => {
     removeStyles();
-    setStyles(styles);
-    dispatch(fetchStyles());    
+    setStyles(chosenStyles);
+    dispatch(changeCurrentStyles(styles[index]));
   };
 
   return (
@@ -30,7 +30,7 @@ export const ThemesPage = (): JSX.Element => {
         :
         <ul className='themes__items'>
         {
-          styles.map((item) => {
+          styles.map((item, index) => {
             const itemStyles: CSSProperties = {
               border: `2px solid ${item.mainColor}`,
               backgroundColor: item.secondColor,
@@ -42,7 +42,7 @@ export const ThemesPage = (): JSX.Element => {
               <li
                 className='themes__item'
                 key={item.id}
-                onClick={() => handleTheme(item)}
+                onClick={() => handleTheme(item, index)}
                 style={itemStyles}
               >
                 {item.title}

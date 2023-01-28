@@ -29,6 +29,8 @@ const toastifyOptions: ToastOptions = {
 
 export const changeNextPage = createAction('PAGE/changeNextPage');
 
+export const changeCurrentStyles = createAction<Styles>('STYLES/changeCurrentStyles');
+
 export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchNews.pending, (state) => {
@@ -75,5 +77,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeNextPage, (state) => {
       state.nextPage += 1;
+    })
+    .addCase(changeCurrentStyles, (state, action) => {
+      state.currentStyles = action.payload;
     });
 });
