@@ -2,7 +2,7 @@ import { createReducer, createAction } from '@reduxjs/toolkit';
 import { toast, ToastOptions } from 'react-toastify';
 import { getStyles, setStyles } from '../services/styles';
 import { News, Styles } from '../types/types';
-import { fetchNews, fetchStyles, fetchMoreNews } from './api-actions';
+import { fetchNews, fetchStyles, fetchAllStyles, fetchMoreNews } from './api-actions';
 
 const initialState: {
   news: News[];
@@ -29,8 +29,6 @@ const toastifyOptions: ToastOptions = {
 
 export const changeNextPage = createAction('PAGE/changeNextPage');
 
-export const changeCurrentStyles = createAction<Styles>('STYLES/changeCurrentStyles');
-
 export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(fetchNews.pending, (state) => {
@@ -49,6 +47,18 @@ export const reducer = createReducer(initialState, (builder) => {
       state.isLoading = true;
     })
     .addCase(fetchStyles.fulfilled, (state, action) => {
+      state.currentStyles = action.payload;
+      setStyles(action.payload);
+      state.isLoading = false;
+    })
+    .addCase(fetchStyles.rejected, (state) => {
+      state.isLoading = false;
+      toast.error('Случилась ошибка при загрузке стилей, попробуйте перезапустить страницу!', toastifyOptions);
+    })
+    .addCase(fetchAllStyles.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(fetchAllStyles.fulfilled, (state, action) => {
       if (!state.currentStyles) {
         state.currentStyles = action.payload[0];
         setStyles(action.payload[0]);
@@ -58,7 +68,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.styles = action.payload;
       state.isLoading = false;
     })
-    .addCase(fetchStyles.rejected, (state) => {
+    .addCase(fetchAllStyles.rejected, (state) => {
       state.isLoading = false;
       toast.error('Случилась ошибка при загрузке стилей, попробуйте перезапустить страницу!', toastifyOptions);
     })
@@ -78,7 +88,4 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(changeNextPage, (state) => {
       state.nextPage += 1;
     })
-    .addCase(changeCurrentStyles, (state, action) => {
-      state.currentStyles = action.payload;
-    });
 });

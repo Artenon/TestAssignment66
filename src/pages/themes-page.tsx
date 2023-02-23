@@ -1,11 +1,11 @@
 import { CSSProperties } from 'react';
 import Loading from 'react-loading';
 import { useAppSelector, useAppDispatch } from '../hooks';
+import { fetchStyles } from '../redux/api-actions';
 import { getStyles, getCurrentStyles, getIsLoading } from '../redux/selectors';
-import { changeCurrentStyles } from '../redux/reducer';
 import { Header } from '../components/header/header';
 import { Footer } from '../components/footer/footer';
-import { setStyles, removeStyles } from '../services/styles';
+import { removeStyles } from '../services/styles';
 import { Styles } from '../types/types';
 
 export const ThemesPage = (): JSX.Element => {
@@ -15,10 +15,9 @@ export const ThemesPage = (): JSX.Element => {
   const isLoading = useAppSelector(getIsLoading);
   const currentStyles = useAppSelector(getCurrentStyles);
 
-  const handleTheme = (chosenStyles: Styles, index: number) => {
+  const handleTheme = (chosenStyles: Styles) => {
     removeStyles();
-    setStyles(chosenStyles);
-    dispatch(changeCurrentStyles(styles[index]));
+    dispatch(fetchStyles(chosenStyles.name));
   };
 
   return (
@@ -30,7 +29,7 @@ export const ThemesPage = (): JSX.Element => {
         :
         <ul className='themes__items'>
         {
-          styles.map((item, index) => {
+          styles.map((item) => {
             const itemStyles: CSSProperties = {
               border: `2px solid ${item.mainColor}`,
               backgroundColor: item.secondColor,
@@ -42,7 +41,7 @@ export const ThemesPage = (): JSX.Element => {
               <li
                 className='themes__item'
                 key={item.id}
-                onClick={() => handleTheme(item, index)}
+                onClick={() => handleTheme(item)}
                 style={itemStyles}
               >
                 {item.title}

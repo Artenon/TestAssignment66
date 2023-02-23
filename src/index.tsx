@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import { Provider } from 'react-redux';
 import App from './App';
 import { store } from './redux/store';
-import { fetchStyles } from './redux/api-actions';
+import { fetchAllStyles } from './redux/api-actions';
 
 import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-store.dispatch(fetchStyles());
+store.dispatch(fetchAllStyles());
 
 root.render(
   <Provider store={store}>

@@ -29,13 +29,26 @@ export const fetchMoreNews = createAsyncThunk<News[], number, {
   }
 );
 
-export const fetchStyles = createAsyncThunk<Styles[], undefined, {
+export const fetchStyles = createAsyncThunk<Styles, Theme, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
 }
 >(
   `DATA/fetchStyles`,
+  async (theme, {dispatch, extra: api}) => {
+    const {data} = await api.get<Styles>(`${APIRoute.Theme}${APIRoute.Get}${APIRoute.Name}${theme}`);
+    return data;
+  }
+);
+
+export const fetchAllStyles = createAsyncThunk<Styles[], undefined, {
+  dispatch: AppDispatch,
+  state: State,
+  extra: AxiosInstance
+}
+>(
+  `DATA/fetchAllStyles`,
   async (_arg, {dispatch, extra: api}) => {
     const darkTheme = await api.get<Styles>(`${APIRoute.Theme}${APIRoute.Get}${APIRoute.Name}${Theme.Dark}`);
     const lightTheme = await api.get<Styles>(`${APIRoute.Theme}${APIRoute.Get}${APIRoute.Name}${Theme.Light}`);
